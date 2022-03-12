@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { BidStatus, TypeOfProblem } from '@prisma/client';
 import { PrismaService } from 'src/shared/prisma/prisma.service';
 import { CreateBidDto, Order } from './dto/create-bid.dto';
-import { UpdateBidDto } from './dto/update-bid.dto';
 
 @Injectable()
 export class BidService {
@@ -47,11 +46,12 @@ export class BidService {
     return await this.prisma.bid.findUnique({ where: { id }, include: { assistedBy: true, createdBy: true } });
   }
 
-  update(id: number, updateBidDto: UpdateBidDto) {
-    return `This action updates a #${id} bid`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bid`;
+  async endBid(id: string) {
+    return await this.prisma.bid.update({
+      where: { id },
+      data: {
+        status: BidStatus.CLOSED,
+      },
+    });
   }
 }

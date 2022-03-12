@@ -72,6 +72,16 @@ model Bid {
     assistedUserId String?
 }
 
+model NFT {
+    id String @id @default(uuid())
+
+    contractAddress String
+    contractName    String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
 enum TypeOfProblem {
     PC
     MOBILE
