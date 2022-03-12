@@ -23,16 +23,16 @@ services:
       - ./api-backend:/usr/src/app
     depends_on:
       - db
-      - redis
+      # - redis
     networks:
       - app-network
 
-  redis: 
-    container_name: redis
-    build:
-      context: ./infra/redis
-    networks:
-      - app-network
+  # redis: 
+  #   container_name: redis
+  #   build:
+  #     context: ./infra/redis
+  #   networks:
+  #     - app-network
 
   frontend:
     container_name: frontend
@@ -42,16 +42,6 @@ services:
       - ./front-end:/usr/src/app
     depends_on:
       - db
-    networks:
-      - app-network
-
-  python:
-    container_name: python
-    build:
-      context: ./python-cont
-    ports:
-      - 5000:5000
-      - 10001:10001 
     networks:
       - app-network
 

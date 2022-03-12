@@ -21,17 +21,20 @@ class EnvironmentVariables {
   @IsString()
   HTTP_SWAGGER_DOCS_PREFIX: string = '/api/docs/';
 
-  @IsNumber()
-  REDIS_DATABASE_ID: number = 1;
-
   @IsString()
-  REDIS_HOSTNAME: string = 'redis';
+  JWT_UAT_SECRET: string;
 
   @IsNumber()
-  REDIS_PORT: number = 6379;
+  ACCESS_TOKEN_LIFESPAN: number;
 
   @IsString()
-  REDIS_PASS: string = 'redis-pass';
+  JWT_RT_SECRET: string;
+
+  @IsNumber()
+  REFRESH_TOKEN_LIFESPAN: number;
+
+  @IsString()
+  COOKIE_SECRET: string;
 }
 
 export function validate(config: Record<string, unknown>) {

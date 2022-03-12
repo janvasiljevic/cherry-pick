@@ -1,0 +1,69 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  yearOfBirth Int [not null]
+  password String [not null]
+  telephoneNumber String [not null]
+  locationKnown Boolean [not null, default: false]
+  longitude Float [not null, default: 0]
+  latitude Float [not null, default: 0]
+  refreshToken String
+  userType UserType [not null, default: 'USER']
+  assistant Assistant
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  BidCreated Bid [not null]
+  BidAssisted Bid [not null]
+  assistantId String
+}
+
+Table Assistant {
+  id String [pk]
+  wallet String
+  numberOfHelps Int [not null, default: 0]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  User User [not null]
+}
+
+Table Bid {
+  id String [pk]
+  createdBy User [not null]
+  assistedBy User
+  dateOfConfirmation DateTime [not null]
+  status BidStatus [not null]
+  typeOfProblem TypeOfProblem [not null]
+  tipAmount Int [not null, default: 0]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  createdUserId String [not null]
+  assistedUserId String
+}
+
+Enum TypeOfProblem {
+  PC
+  MOBILE
+  PRINTER
+  OTHER
+}
+
+Enum BidStatus {
+  OPEN
+  ASSIGNED
+  CLOSED
+}
+
+Enum UserType {
+  USER
+  ASSISTANT
+}
+
+Ref: User.assistantId > Assistant.id
+
+Ref: Bid.createdUserId > User.id
+
+Ref: Bid.assistedUserId > User.id

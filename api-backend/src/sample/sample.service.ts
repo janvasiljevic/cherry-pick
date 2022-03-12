@@ -9,8 +9,4 @@ export class SampleService {
   public async getUsers(): Promise<User[]> {
     return await this.prismaService.user.findMany();
   }
-
-  public async createUser(username: string) {
-    return await this.prismaService.user.create({ data: { username } });
-  }
 }
