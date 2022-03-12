@@ -10,7 +10,7 @@ interface IIconProps{
 }
 const Ico = ({done, i}:IIconProps) => {
   if(done){
-    return(<Avatar bg='green.400' color="whiteAlpha.900" icon={<FaCheck fontSize='1.3rem' />} />);
+    return(<Avatar bg='teal.400' color="whiteAlpha.900" icon={<FaCheck fontSize='1.3rem' />} />);
   }
   return (
     <Avatar name={(i+1).toString()} color="blackAlpha.600" bgColor="gray.200" />
