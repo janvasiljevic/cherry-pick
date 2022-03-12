@@ -6,7 +6,6 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { RequestWithUAT } from 'src/common/interfaces/tokens.interface';
 import { BidService } from './bid.service';
 import { CreateBidDto, Order } from './dto/create-bid.dto';
-import { UpdateBidDto } from './dto/update-bid.dto';
 
 @Controller('bid')
 @ApiTags('Bids')
@@ -63,8 +62,12 @@ export class BidController {
     return this.bidService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBidDto: UpdateBidDto) {
-    return this.bidService.update(+id, updateBidDto);
+  @Patch(':id/end')
+  @ApiOperation({
+    summary: 'End the bid',
+    description: 'End the bid',
+  })
+  endBid(@Param('id') id: string) {
+    return this.bidService.endBid(id);
   }
 }
