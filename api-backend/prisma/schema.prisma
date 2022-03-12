@@ -57,8 +57,10 @@ model Bid {
     createdBy  User  @relation("BidCreated", fields: [createdUserId], references: [id])
     assistedBy User? @relation("BidAssisted", fields: [assistedUserId], references: [id])
 
-    dateOfConfirmation DateTime
-    status             BidStatus
+    dateOfConfirmation DateTime?
+    status             BidStatus @default(OPEN)
+
+    description String
 
     typeOfProblem TypeOfProblem
     tipAmount     Int           @default(0)

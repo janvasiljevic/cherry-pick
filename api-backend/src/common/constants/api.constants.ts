@@ -1,6 +1,7 @@
 export const API = {
   CONTROLLERS: {
     AUTH: 'auth',
+    REGISTER: 'register',
   },
   AUTH: {
     PROFILE: 'profile',

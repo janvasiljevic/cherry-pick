@@ -34,8 +34,9 @@ Table Bid {
   id String [pk]
   createdBy User [not null]
   assistedBy User
-  dateOfConfirmation DateTime [not null]
-  status BidStatus [not null]
+  dateOfConfirmation DateTime
+  status BidStatus [not null, default: 'OPEN']
+  description String [not null]
   typeOfProblem TypeOfProblem [not null]
   tipAmount Int [not null, default: 0]
   createdAt DateTime [default: `now()`, not null]
