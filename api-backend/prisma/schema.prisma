@@ -7,9 +7,73 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator dbml {
+    provider = "prisma-dbml-generator"
+}
+
 model User {
-    username String @unique
+    id Int @id @default(autoincrement())
+
+    email           String @unique
+    yearOfBirth     Int
+    password        String
+    telephoneNumber String
+
+    locationKnown Boolean @default(false)
+    longitude     Float   @default(0)
+    latitude      Float   @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    Bid       Bid[]
+}
+
+model Assistant {
+    id Int @id @default(autoincrement())
+
+    email           String @unique
+    yearOfBirth     Int
+    password        String
+    telephoneNumber String
+
+    wallet        String?
+    numberOfHelps Int     @default(0)
+
+    locationKnown Boolean @default(false)
+    longitude     Float   @default(0)
+    latitude      Float   @default(0)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Bid       Bid[]
+}
+
+model Bid {
+    id Int @id @default(autoincrement())
+
+    createdBy          User       @relation(fields: [userId], references: [id])
+    assistant          Assistant? @relation(fields: [assistantId], references: [id])
+    dateOfConfirmation DateTime
+    status             BidStatus
+
+    typeOfProblem TypeOfProblem
+    tipAmount     Int           @default(0)
+
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    userId      Int
+    assistantId Int?
+}
+
+enum TypeOfProblem {
+    PC
+    MOBILE
+    PRINTER
+    OTHER
+}
+
+enum BidStatus {
+    OPEN
+    ASSIGNED
+    CLOSED
 }

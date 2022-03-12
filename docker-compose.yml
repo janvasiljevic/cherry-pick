@@ -23,7 +23,7 @@ services:
       - ./api-backend:/usr/src/app
     depends_on:
       - db
-      - redis
+      # - redis
     networks:
       - app-network
 
