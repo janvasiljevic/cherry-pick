@@ -32,7 +32,7 @@ interface IStepperProps{
 }
 export const Stepper = ({step, numSteps, ...other}:IStepperProps) => {
   return (
-    <HStack {...other} divider={<MyDivider />} w="full" justify="space-between">
+    <HStack {...other} divider={<MyDivider />} w="full" justify="space-between" p={8}>
       {Array(numSteps).fill(1).map((j,i)=>{
         return(<Ico done={(i <= step)} i={i} key={i} />)
       })}
