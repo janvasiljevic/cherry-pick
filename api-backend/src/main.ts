@@ -3,7 +3,8 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import fastifyCookie from 'fastify-cookie'; // not actually useless, do not delete, I repeat do not delete
 
 async function bootstrap() {
   const bootstrapLogger = new Logger('Main');
@@ -15,10 +16,11 @@ async function bootstrap() {
   const globalPrefix = configService.get('HTTP_API_PREFIX');
 
   app.setGlobalPrefix(globalPrefix);
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-    .setTitle('Hackathon API')
-    .setDescription('Hackathon API documentation')
+    .setTitle('Cherry Pick API')
+    .setDescription('Cherry Pick API documentation')
     .setVersion('0.1')
     .addBearerAuth(
       {
@@ -35,10 +37,14 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config, {});
 
+  app.register(require('fastify-cookie'), {
+    secret: configService.get('COOKIE_SECRET'),
+  });
+
   SwaggerModule.setup(configService.get('HTTP_SWAGGER_DOCS_PREFIX'), app, document);
 
   const port = configService.get('HTTP_PORT');
 
-  await app.listen(port, '0.0.0.0').then(() => bootstrapLogger.log(`Nestway is listening on port ${port}`));
+  await app.listen(port, '0.0.0.0').then(() => bootstrapLogger.log(`Cherry Pick API is listening on port ${port}`));
 }
 bootstrap();

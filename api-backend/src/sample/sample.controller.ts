@@ -11,9 +11,4 @@ export class SampleController {
   async getUsers() {
     return await this.sampleService.getUsers();
   }
-
-  @Post('user/:username')
-  async createUser(@Param('username') username: string) {
-    return await this.sampleService.createUser(username);
-  }
 }

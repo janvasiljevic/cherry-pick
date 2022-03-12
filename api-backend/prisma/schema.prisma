@@ -12,7 +12,7 @@ generator dbml {
 }
 
 model User {
-    id Int @id @default(autoincrement())
+    id String @id @default(uuid())
 
     email           String @unique
     yearOfBirth     Int
@@ -23,46 +23,51 @@ model User {
     longitude     Float   @default(0)
     latitude      Float   @default(0)
 
+    // Auth
+    refreshToken String? // A hashed refresh token
+
+    // If user is assistant, connect to assistant table
+    userType  UserType   @default(USER)
+    assistant Assistant? @relation(fields: [assistantId], references: [id])
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    Bid       Bid[]
+
+    BidCreated  Bid[] @relation(name: "BidCreated")
+    BidAssisted Bid[] @relation(name: "BidAssisted")
+
+    assistantId String?
 }
 
 model Assistant {
-    id Int @id @default(autoincrement())
-
-    email           String @unique
-    yearOfBirth     Int
-    password        String
-    telephoneNumber String
+    id String @id @default(uuid())
 
     wallet        String?
     numberOfHelps Int     @default(0)
 
-    locationKnown Boolean @default(false)
-    longitude     Float   @default(0)
-    latitude      Float   @default(0)
-
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    Bid       Bid[]
+    User      User[]
 }
 
 model Bid {
-    id Int @id @default(autoincrement())
+    id String @id @default(uuid())
 
-    createdBy          User       @relation(fields: [userId], references: [id])
-    assistant          Assistant? @relation(fields: [assistantId], references: [id])
+    // Bid must be created by a user, but can only be helped by one user at a time!
+    createdBy  User  @relation("BidCreated", fields: [createdUserId], references: [id])
+    assistedBy User? @relation("BidAssisted", fields: [assistedUserId], references: [id])
+
     dateOfConfirmation DateTime
     status             BidStatus
 
     typeOfProblem TypeOfProblem
     tipAmount     Int           @default(0)
 
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    userId      Int
-    assistantId Int?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdUserId  String
+    assistedUserId String?
 }
 
 enum TypeOfProblem {
@@ -76,4 +81,9 @@ enum BidStatus {
     OPEN
     ASSIGNED
     CLOSED
+}
+
+enum UserType {
+    USER
+    ASSISTANT
 }
