@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: api
+      POSTGRES_PASSWORD: supersecure
+      POSTGRES_DB: hackathon
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  api:
+    container_name: api
+    build:
+      context: ./api-backend 
+    restart: always
+    volumes:
+      - ./api-backend:/usr/src/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+
+  redis: 
+    container_name: redis
+    build:
+      context: ./infra/redis
+    networks:
+      - app-network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./front-end
+    volumes:
+      - ./front-end:/usr/src/app
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  python:
+    container_name: python
+    build:
+      context: ./python-cont
+    ports:
+      - 5000:5000
+      - 10001:10001 
+    networks:
+      - app-network
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.21.6-alpine
+    restart: on-failure
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
