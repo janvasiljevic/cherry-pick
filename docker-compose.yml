@@ -59,6 +59,8 @@ services:
       - db
     networks:
       - app-network
+    ports:
+      - 3000:3000
 
   nginx:
     container_name: nginx

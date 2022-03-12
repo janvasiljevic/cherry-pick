@@ -17,4 +17,6 @@ yarn prisma migrate dev --name init
 yarn prisma migrate reset --force
 
 yarn seed
+
+yarn prisma generate
 ```

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Bid" ALTER COLUMN "dateOfConfirmation" DROP NOT NULL,
+ALTER COLUMN "status" SET DEFAULT E'OPEN';
