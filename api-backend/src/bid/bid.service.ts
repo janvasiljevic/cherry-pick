@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {BidStatus, TypeOfProblem} from '@prisma/client';
 import {PrismaService} from 'src/shared/prisma/prisma.service';
 import {CreateBidDto, Order} from './dto/create-bid.dto';
+import axios from "axios";
 
 @Injectable()
 export class BidService {
@@ -59,6 +60,14 @@ export class BidService {
     async endBid(id: string) {
         const thisBid = await this.findOne(id)
         const assistant = await this.prisma.user.findUnique({where: {id: thisBid.assistedUserId}})
+        const assistantO = await this.prisma.assistant.findUnique({where: {id: assistant.assistantId}})
+        if (assistantO.numberOfHelps === 1) {
+            const response = await axios.post('http://nft:4000/create-nft', {
+                contract_name: 'FirstHelp',
+                address: assistantO.wallet,
+                contract_address: '0xC1C8f2fb1C2f68953F576E93E126557856b7471E',
+            });
+        }
         await this.prisma.assistant.update({
             where: {id: assistant.assistantId},
             data: {
@@ -70,6 +79,7 @@ export class BidService {
                 },
             },
         });
+
         return await this.prisma.bid.update({
             where: {id},
             data: {
