@@ -45,7 +45,7 @@ export const Navbar = ({ setOpen, isOpen }: INavbarProps) => {
             cursor: 'pointer',
           }}
         >
-          Logo
+          AjTi dash
         </Heading>
 
         <Flex grow={1}> </Flex>

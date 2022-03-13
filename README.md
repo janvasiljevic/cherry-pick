@@ -1,7 +1,33 @@
 # Cherry Pick
 
+Za vzpostavitev projekta
 
-They go in order of:
+```
+make yarn
+make dev-up
+```
+
+Možni obiski strani:
+```
+localhost
+localhost/api/docs
+```
+
+Za uporabo kot Asistent je potreben Metamask
+```
+GoChain Testnet
+
+https://testnet-rpc.gochain.io/
+
+31337
+
+GO
+
+https://testnet-explorer.gochain.io/
+```
+
+
+V Metamask je potrebno dodati tokene:
 - Signup
 - GoodSamaritan
 - FirstHelp
