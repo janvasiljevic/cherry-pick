@@ -56,7 +56,7 @@ export const Navbar = ({ setOpen, isOpen }: INavbarProps) => {
             <Avatar size="sm" name={user.email} />
           </MenuButton>
           <MenuList>
-            <MenuItem>Profile ({user.email})</MenuItem>
+            <MenuItem onClick={() => navigate(`/user${user.id}`)}>Profile ({user.email})</MenuItem>
             <MenuDivider />
             <MenuItem onClick={() => navigate('/login')}>Logout</MenuItem>
           </MenuList>
