@@ -44,11 +44,13 @@ model Assistant {
 
     wallet        String?
     numberOfHelps Int     @default(0)
+    tips          Int     @default(0)
+
+    achievement Achievement[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     User      User[]
-    // Badge     Badge[]
 }
 
 model Bid {
@@ -73,21 +75,19 @@ model Bid {
     assistedUserId String?
 }
 
-model NFT {
+model Achievement {
     id String @id @default(uuid())
 
     contractAddress String
     contractName    String
-
-    // backendName BackendEnum
-
-    // description String
-    // name        String
-    // image       Bytes
+    name            String
+    description     String
+    level           Int
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    // Badge     Badge[]
+
+    assistant Assistant[]
 }
 
 // model Badge {
@@ -118,10 +118,10 @@ enum BidStatus {
 enum UserType {
     USER
     ASSISTANT
+    ADMIN
 }
 
-// // PO TEM JIH SEARCI
-// enum BackendEnum {
-//     GOOD_SAMARIAN
-//     TETA_HELPER
-// }
+enum AchievementEnum {
+    GOOD_SAMARIAN
+    TETA_HELPER
+}
