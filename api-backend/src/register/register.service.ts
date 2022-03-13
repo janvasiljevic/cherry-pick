@@ -11,7 +11,7 @@ export class RegisterService {
   async register(createAccount: CreateAccountDto) {
     const password = await bcrypt.hash(createAccount.password, 10);
 
-    if (createAccount.userType == UserType.USER) {
+    if (createAccount.userType == UserType.USER || createAccount.userType == UserType.ADMIN) {
       return await this.prisma.user.create({ data: { ...createAccount, password } }).catch((e) => {
         console.log(e);
 
