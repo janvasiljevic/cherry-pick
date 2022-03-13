@@ -65,11 +65,11 @@ export const GetStarted = () => {
         longitude: location?.coords.longitude,
         latitude: location?.coords.latitude,
       })
-      .catch((e) => {
-        console.log(e);
-      })
       .then(() => {
         setStep(2);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 

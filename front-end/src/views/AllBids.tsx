@@ -60,7 +60,7 @@ const AllBids = () => {
                 activeBids.bids.map((bid) => {
                   return <BidAlt bid={bid} key={bid.id} />;
                 })}
-              {activeBids.bids.length === 0 && <EmptyList />}
+              {activeBids.bids && activeBids.bids.length === 0 && <EmptyList />}
             </Stack>
           </TabPanel>
         </TabPanels>
