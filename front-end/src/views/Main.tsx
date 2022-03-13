@@ -78,7 +78,7 @@ export const Main = () => {
         <ModalContent>
           <ModalHeader>Connect your wallet</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>You must connect your Metamsak wallet</ModalBody>
+          <ModalBody>You must connect your Metamask wallet</ModalBody>
 
           <ModalFooter>
             <Button variant="ghost" onClick={connectMetamask}>
