@@ -1,35 +1,27 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
-  Center,
+  chakra,
   Container,
-  Divider,
   Flex,
   FormControl,
-  FormErrorMessage,
   Input,
-  Spacer,
-  Square,
-  Stack,
-  StackDivider,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Text,
+  toast,
+  useToast,
   VStack,
-} from "@chakra-ui/react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  IFormInput,
-  onSubmitLogin,
-  onSubmitRegister,
-} from "../services/LoginService";
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaEthereum, FaLock, FaUserAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { IFormInput, onSubmitLogin } from '../services/LoginService';
 
-import  {FaEthereum} from "react-icons/fa"
+const CFaLock = chakra(FaLock);
+const CFaUserAlt = chakra(FaUserAlt);
 
 export const Login = () => {
   const {
@@ -37,98 +29,68 @@ export const Login = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm<IFormInput>();
-  
+
+  const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toast = useToast();
+
+  const onSubmit = (data: IFormInput) => {
+    onSubmitLogin(data)
+      .then((data) => {
+        navigate('/bids');
+      })
+      .catch(() => {
+        toast({
+          title: 'Error logging in',
+          description: 'Did you misstype your password?',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handleShowClick = () => setShowPassword(!showPassword);
 
   return (
-    <Container>
+    <Container alignItems="center" justifyContent="center">
+      <Text fontSize="3xl" textAlign="center" p={6} fontWeight="light">
+        Login
+      </Text>
+
       <Box borderWidth="1px" borderRadius="lg" p={8}>
-        <Flex align="center">
-          <FaEthereum fontSize="200%"/>
-          <Text fontSize="3xl" textAlign="left" p={6} fontWeight="bold">
-            Pew pew
-          </Text>
-          <FaEthereum fontSize="200%"/>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl>
+            <VStack spacing={4}>
+              <InputGroup>
+                <InputLeftElement pointerEvents="none" color="gray.300" children={<CFaUserAlt color="gray.300" />} />
+                <Input variant="flushed" {...register('email')} placeholder="email address" autoComplete="on" />
+              </InputGroup>
 
-        </Flex>
-        <Tabs>
-          <TabList>
-            <Tab>Login</Tab>
-            <Tab>Register</Tab>
-          </TabList>
+              <InputGroup>
+                <InputLeftElement pointerEvents="none" color="gray.300" children={<CFaLock color="gray.300" />} />
+                <Input
+                  variant="flushed"
+                  {...register('password')}
+                  placeholder="password"
+                  autoComplete="on"
+                  type={showPassword ? 'text' : 'password'}
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                    {showPassword ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
 
-          <TabPanels>
-            {/* login */}
-            <TabPanel>
-              <form onSubmit={handleSubmit(onSubmitLogin)}>
-                <FormControl
-                // isInvalid={false}
-                // isInvalid={errors.usežrname != null || errors.password != null}
-                >
-                  <VStack spacing={4}>
-                    <Input
-                      {...register("username")}
-                      placeholder="Username"
-                      autoComplete="on"
-                    />
-
-                    <Input
-                      {...register("password")}
-                      placeholder="Password"
-                      autoComplete="on"
-                    />
-
-                    <Button
-                      colorScheme="teal"
-                      variant="solid"
-                      isFullWidth={true}
-                      type="submit"
-                      isLoading={isSubmitting}
-                    >
-                      Login
-                    </Button>
-                  </VStack>
-                </FormControl>
-              </form>
-            </TabPanel>
-
-            {/* register */}
-            <TabPanel>
-              <form onSubmit={handleSubmit(onSubmitRegister)}>
-                <FormControl>
-                  <VStack spacing={4}>
-                    <Input
-                      {...register("username")}
-                      placeholder="Username"
-                      autoComplete="on"
-                    />
-                    <Input
-                      {...register("password")}
-                      placeholder="Password"
-                      type="password"
-                      autoComplete="on"
-                    />
-                    <Input
-                      {...register("email")}
-                      placeholder="Email"
-                      type="email"
-                      autoComplete="on"
-                    />
-
-                    <Button
-                      colorScheme="teal"
-                      variant="solid"
-                      isFullWidth={true}
-                      type="submit"
-                      isLoading={isSubmitting}
-                    >
-                      Register
-                    </Button>
-                  </VStack>
-                </FormControl>
-              </form>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+              <Button colorScheme="teal" variant="solid" isFullWidth={true} type="submit" isLoading={isSubmitting}>
+                Login
+              </Button>
+            </VStack>
+          </FormControl>
+        </form>
       </Box>
     </Container>
   );

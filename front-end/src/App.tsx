@@ -1,36 +1,38 @@
 // 1. Import `extendTheme`
-import { extendTheme, ChakraProvider, Box, Flex } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login } from "./views/Login";
-import { Main } from "./views/Main";
-import { NotFound } from "./views/NotFound";
-import { Companies } from "./views/Companies";
-import { Company } from "./views/Company";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
-import { User } from "./views/User";
-import { Gallery } from "./views/Gallery";
-import { GetStarted } from "./views/GetStarted";
+import { extendTheme, ChakraProvider, Box, Flex } from '@chakra-ui/react';
+import { ColorModeSwitcher } from './components/ColorModeSwitcher';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Login } from './views/Login';
+import { Main } from './views/Main';
+import { NotFound } from './views/NotFound';
+import { Companies } from './views/Companies';
+import { Company } from './views/Company';
+import { store } from './app/store';
+import { Provider } from 'react-redux';
+import { User } from './views/User';
+import { Gallery } from './views/Gallery';
+import { GetStarted } from './views/GetStarted';
+import BidsList from './views/BidsList';
+import AddProblem from './views/AddProblem';
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
   colors: {
     accent: {
-      dark: "#4C956C",
-      light: "#6BB38A",
+      dark: '#4C956C',
+      light: '#6BB38A',
     },
     badge: {
-      dark: "#2E2E2E",
-      light: "#F2F2F2",
+      dark: '#2E2E2E',
+      light: '#F2F2F2',
     },
     text: {
-      dark: "#D4D4D4",
-      light: "#2B2B2B",
+      dark: '#D4D4D4',
+      light: '#2B2B2B',
     },
     bg: {
-      dark: "#171923",
-      light: "#F8F8F6",
+      dark: '#171923',
+      light: '#F8F8F6',
     },
   },
 });
@@ -45,10 +47,12 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />}>
                 {/* Company related views */}
+                <Route path="add" element={<AddProblem />} />
+                <Route path="bids" element={<BidsList />} />
                 <Route path="companies" element={<Companies />} />
                 <Route path="company:compId" element={<Company />} />
                 <Route path="user:userId" element={<User />} />
-                <Route index element={"c o n  t e n t"} />
+                <Route index element={'c o n  t e n t'} />
               </Route>
               <Route path="start" element={<GetStarted />} />
               <Route path="/login" element={<Login></Login>} />
