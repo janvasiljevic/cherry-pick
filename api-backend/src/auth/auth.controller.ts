@@ -65,6 +65,9 @@ export class AuthController {
       where: {
         email: user.email,
       },
+      include: {
+        assistant: true
+      }
     });
 
     return data;

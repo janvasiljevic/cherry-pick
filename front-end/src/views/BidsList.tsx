@@ -33,10 +33,6 @@ const BidsList = () => {
   return (
     <Container maxW="container.lg">
       <Flex direction="column">
-        {/* <Heading fontWeight={300} p={6}>
-          Hello, Maja
-        </Heading> */}
-
         <HStack spacing="100px" w="100%" align="center" justify="center" mt="12">
           <PreetyButton
             title="Add"
@@ -70,14 +66,14 @@ const BidsList = () => {
             </TabPanel>
             <TabPanel>
               <Stack direction={'column'} spacing={6}>
-                {bids && bids.filter(({ status }) => status === 'CLOSED').map((bid) => <HelpItem bid={bid} />)}
-                {bids && bids.filter(({ status }) => status === 'CLOSED').length === 0 && <EmptyList />}
+                {bids && bids.filter(({ status }) => status === 'ASSIGNED').map((bid) => <HelpItem bid={bid} />)}
+                {bids && bids.filter(({ status }) => status === 'ASSIGNED').length === 0 && <EmptyList />}
               </Stack>
             </TabPanel>
             <TabPanel>
               <Stack direction={'column'} spacing={6}>
-                {bids && bids.filter(({ status }) => status === 'ASSIGNED').map((bid) => <HelpItem bid={bid} />)}
-                {bids && bids.filter(({ status }) => status === 'ASSIGNED').length === 0 && <EmptyList />}
+                {bids && bids.filter(({ status }) => status === 'CLOSED').map((bid) => <HelpItem bid={bid} />)}
+                {bids && bids.filter(({ status }) => status === 'CLOSED').length === 0 && <EmptyList />}
               </Stack>
             </TabPanel>
           </TabPanels>

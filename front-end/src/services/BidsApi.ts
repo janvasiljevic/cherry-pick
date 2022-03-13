@@ -6,21 +6,24 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const fetcherArgs = (url: string, params: any) => axios.get(url, { params }).then((res) => res.data);
 
 export function useBidsList(params: any) {
-  const { data, error } = useSWR([`/api/bid`, params], fetcherArgs);
+  const { data, error, mutate } = useSWR([`/api/bid`, params], fetcherArgs);
 
   return {
     bids: data as IBid[],
     isLoading: !error && !data,
     isError: error,
+    mutate,
   };
 }
 
 export function useBidsUser() {
   const { data, error } = useSWR(`/api/user`, fetcher);
 
+  console.log(data, error);
+
   return {
-    bids: data.BidCreated as IBid[],
-    isLoading: !error && !data.BidCreated,
+    bids: data?.BidCreated as IBid[],
+    isLoading: !error && !data?.BidCreated,
     isError: error,
   };
 }
