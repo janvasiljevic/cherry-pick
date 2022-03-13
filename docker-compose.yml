@@ -35,21 +35,15 @@ services:
     working_dir: /nft-backend
     ports:
       - "4000:4000"
+    restart: always
     environment:
       - WEB3_NETWORK=testnet
-      - WEB3_PRIVATE_KEY=6448415dd4c3bf6ebbb42cee99da603395434f6b459c285e0d9864c30f3bb17e
+      - WEB3_PRIVATE_KEY=760b064b32cd600fc2ee6044d2aab50b5d1ee838b136b67fc33ab177b0a4a8fd
     volumes:
       - ./nft-backend/:/nft-backend/
-      # - /var/run/docker.sock:/var/run/docker.soc
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - app-network
-
-  # redis: 
-  #   container_name: redis
-  #   build:
-  #     context: ./infra/redis
-  #   networks:
-  #     - app-network
 
   frontend:
     container_name: frontend
