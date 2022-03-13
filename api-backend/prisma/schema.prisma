@@ -37,6 +37,7 @@ model User {
     BidAssisted Bid[] @relation(name: "BidAssisted")
 
     assistantId String?
+    Achievement Achievement[]
 }
 
 model Assistant {
@@ -76,7 +77,8 @@ model Bid {
 }
 
 model Achievement {
-    id String @id @default(uuid())
+    id        String @id @default(uuid())
+    createdBy User   @relation(fields: [userId], references: [id])
 
     contractAddress String
     contractName    String
@@ -88,6 +90,7 @@ model Achievement {
     updatedAt DateTime @updatedAt
 
     assistant Assistant[]
+    userId    String
 }
 
 // model Badge {
