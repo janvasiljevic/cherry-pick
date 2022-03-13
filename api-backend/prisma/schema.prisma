@@ -48,6 +48,7 @@ model Assistant {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     User      User[]
+    // Badge     Badge[]
 }
 
 model Bid {
@@ -78,9 +79,28 @@ model NFT {
     contractAddress String
     contractName    String
 
+    // backendName BackendEnum
+
+    // description String
+    // name        String
+    // image       Bytes
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    // Badge     Badge[]
 }
+
+// model Badge {
+//     id String @id @default(uuid())
+
+//     assistant Assistant @relation(fields: [assistantId], references: [id])
+//     nft       NFT       @relation(fields: [nFTId], references: [id])
+
+//     createdAt   DateTime @default(now())
+//     updatedAt   DateTime @updatedAt
+//     assistantId String
+//     nFTId       String
+// }
 
 enum TypeOfProblem {
     PC
@@ -99,3 +119,9 @@ enum UserType {
     USER
     ASSISTANT
 }
+
+// // PO TEM JIH SEARCI
+// enum BackendEnum {
+//     GOOD_SAMARIAN
+//     TETA_HELPER
+// }
