@@ -17,7 +17,7 @@ export function useBidsList(params: any) {
 }
 
 export function useBidsUser() {
-  const { data, error } = useSWR(`/api/user`, fetcher);
+  const { data, error, mutate } = useSWR(`/api/user`, fetcher);
 
   console.log(data, error);
 
@@ -25,6 +25,7 @@ export function useBidsUser() {
     bids: data?.BidCreated as IBid[],
     isLoading: !error && !data?.BidCreated,
     isError: error,
+    mutate,
   };
 }
 

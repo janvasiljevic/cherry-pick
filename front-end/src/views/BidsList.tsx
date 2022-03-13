@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Flex,
   Heading,
@@ -13,6 +14,7 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import { parseISO } from 'date-fns';
 import { FaMoneyBill, FaPlus, FaQuestion } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +22,7 @@ import { IconMapping, IconPrinter } from '../components/Icons';
 import { IBid, useBidsUser } from '../services/BidsApi';
 
 const BidsList = () => {
-  const { bids, isLoading, isError } = useBidsUser();
+  const { bids, isLoading, isError, mutate } = useBidsUser();
 
   console.log(bids);
 
@@ -28,6 +30,10 @@ const BidsList = () => {
 
   const addClick = () => {
     navigate('add');
+  };
+
+  const closeBid = (id: string) => {
+    axios.patch(`/api/bid/${id}/end`).finally(mutate);
   };
 
   return (
@@ -66,7 +72,10 @@ const BidsList = () => {
             </TabPanel>
             <TabPanel>
               <Stack direction={'column'} spacing={6}>
-                {bids && bids.filter(({ status }) => status === 'ASSIGNED').map((bid) => <HelpItem bid={bid} />)}
+                {bids &&
+                  bids
+                    .filter(({ status }) => status === 'ASSIGNED')
+                    .map((bid) => <HelpItem bid={bid} close={true} closeBid={closeBid} />)}
                 {bids && bids.filter(({ status }) => status === 'ASSIGNED').length === 0 && <EmptyList />}
               </Stack>
             </TabPanel>
@@ -85,6 +94,8 @@ const BidsList = () => {
 
 interface IProps {
   bid: IBid;
+  close?: boolean;
+  closeBid?: Function;
 }
 
 const EmptyList = () => {
@@ -99,7 +110,7 @@ const EmptyList = () => {
   );
 };
 
-const HelpItem = ({ bid }: IProps) => {
+const HelpItem = ({ bid, close = false, closeBid }: IProps) => {
   return (
     <Box shadow="md" borderRadius={'md'}>
       <Stack direction={'row'}>
@@ -116,6 +127,19 @@ const HelpItem = ({ bid }: IProps) => {
             {parseISO(bid.createdAt).toLocaleDateString() + ' ' + parseISO(bid.createdAt).toLocaleTimeString()}
           </Text>
         </Stack>
+
+        {close && (
+          <Flex align={'center'} justify="end" grow={1} pr="8">
+            <Button
+              onClick={() => {
+                closeBid && closeBid(bid.id);
+              }}
+            >
+              {' '}
+              Close{' '}
+            </Button>
+          </Flex>
+        )}
       </Stack>
     </Box>
   );

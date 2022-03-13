@@ -1,4 +1,4 @@
-import { Button, Container, Grid, useDisclosure } from '@chakra-ui/react';
+import { Button, Container, Grid, useDisclosure, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -22,6 +22,8 @@ export const Main = () => {
 
   const modal = useDisclosure();
 
+  const toast = useToast();
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -40,9 +42,17 @@ export const Main = () => {
 
       const account = accounts[0];
 
-      console.log(account);
-
-      modal.onClose();
+      axios
+        .patch(`api/user/add-wallet-address/${account}`)
+        .then(() => {
+          toast({
+            status: 'success',
+            description: 'Wallet address succesfully added',
+          });
+        })
+        .finally(() => {
+          modal.onClose();
+        });
     }
   };
 

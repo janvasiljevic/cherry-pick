@@ -196,7 +196,14 @@ const AddProblem = () => {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={endModal.onClose}>
+              <Button
+                colorScheme="blue"
+                mr={3}
+                onClick={() => {
+                  endModal.onClose();
+                  navigate('/');
+                }}
+              >
                 Close
               </Button>
             </ModalFooter>
