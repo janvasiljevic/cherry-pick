@@ -1,9 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import laoderSlice from "./slices/laoderSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import laoderSlice from './slices/laoderSlice';
+import userSlice from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
     loader: laoderSlice,
+    user: userSlice,
   },
 });
 

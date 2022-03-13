@@ -14,6 +14,7 @@ import { Gallery } from './views/Gallery';
 import { GetStarted } from './views/GetStarted';
 import BidsList from './views/BidsList';
 import AddProblem from './views/AddProblem';
+import AllBids from './views/AllBids';
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
@@ -48,11 +49,12 @@ function App() {
               <Route path="/" element={<Main />}>
                 {/* Company related views */}
                 <Route path="add" element={<AddProblem />} />
-                <Route path="user:userId" element={<User />} />
+                <Route path="bids" element={<AllBids />} />
+                <Route path="user:id" element={<User />} />
                 <Route index element={<BidsList />} />
               </Route>
-              <Route path="start" element={<GetStarted />} />
-              <Route path="/login" element={<Login></Login>} />
+              <Route path="register" element={<GetStarted />} />
+              <Route path="login" element={<Login></Login>} />
               <Route path="*" element={<NotFound />}></Route>s
             </Routes>
           </BrowserRouter>

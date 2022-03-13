@@ -79,7 +79,7 @@ const AddProblem = () => {
 
     createBid(query)
       .then(() => {
-        navigate('/bids');
+        navigate('/');
       })
       .finally(() => {
         tipModal.onClose();

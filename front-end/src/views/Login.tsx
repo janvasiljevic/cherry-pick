@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  LinkBox,
   Text,
   toast,
   useToast,
@@ -17,8 +18,10 @@ import {
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEthereum, FaLock, FaUserAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as ReachLink } from 'react-router-dom';
 import { IFormInput, onSubmitLogin } from '../services/LoginService';
+
+import { Link } from '@chakra-ui/react';
 
 const CFaLock = chakra(FaLock);
 const CFaUserAlt = chakra(FaUserAlt);
@@ -38,8 +41,9 @@ export const Login = () => {
 
   const onSubmit = (data: IFormInput) => {
     onSubmitLogin(data)
-      .then((data) => {
-        navigate('/bids');
+      .then(({ data }) => {
+        if (data.userType === 'ASSISTANT') navigate('/bids');
+        else navigate('/');
       })
       .catch(() => {
         toast({
@@ -92,6 +96,12 @@ export const Login = () => {
           </FormControl>
         </form>
       </Box>
+
+      <Flex w="full" align="center" justify="center" mt="8">
+        <Link as={ReachLink} to="/register" alignItems={'center'}>
+          Register
+        </Link>
+      </Flex>
     </Container>
   );
 };

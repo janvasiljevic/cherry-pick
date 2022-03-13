@@ -13,10 +13,26 @@ import {
   Switch,
   Text,
   Textarea,
-} from "@chakra-ui/react";
+  useToast,
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const User = () => {
-  const id = 0;
+  const { id } = useParams();
+  const toast = useToast();
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`api/user/${id}`)
+      .then(() => {})
+      .catch(() => {
+        toast({ description: 'Error', status: 'error', duration: 9000, isClosable: true });
+      });
+  }, [id]);
 
   return (
     <Container py={6} w="full" maxW="container.xl">
