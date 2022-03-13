@@ -44,6 +44,7 @@ model Assistant {
 
     wallet        String?
     numberOfHelps Int     @default(0)
+    tips          Int     @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -72,11 +73,15 @@ model Bid {
     assistedUserId String?
 }
 
-model NFT {
+model Achievement {
     id String @id @default(uuid())
+    createdBy User
 
     contractAddress String
     contractName    String
+    name            String
+    description     String
+    level           Int
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -98,4 +103,10 @@ enum BidStatus {
 enum UserType {
     USER
     ASSISTANT
+    ADMIN
+}
+
+enum AchievementEnum {
+    GOOD_SAMARIAN
+    TETA_HELPER
 }
