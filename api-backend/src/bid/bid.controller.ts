@@ -53,6 +53,17 @@ export class BidController {
     return this.bidService.findAll(status, orderByDate, typeOfProblem);
   }
 
+  @Get('active-bids')
+  @Roles('ASSISTANT')
+  @ApiOperation({
+    summary: 'Get all active bids',
+    description: 'Get all active bids for assistant, with phone number',
+  })
+  activeBids(@Request() {user}: RequestWithUAT) {
+    return this.bidService.getActive(user.sub)
+  }
+
+
   @Get(':id')
   @ApiOperation({
     summary: 'Get one bid',

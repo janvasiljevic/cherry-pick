@@ -43,6 +43,15 @@ export class BidService {
         });
     }
 
+    async getActive(id: string) {
+        return await this.prisma.bid.findMany({
+            where: {assistedUserId: id},
+            include: {
+                createdBy: true
+            }
+        })
+    }
+
     async findOne(id: string) {
         return await this.prisma.bid.findUnique({where: {id}, include: {assistedBy: true, createdBy: true}});
     }
