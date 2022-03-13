@@ -24,7 +24,7 @@ export class UserService {
 
     async addWalletAddress(address: string, id: string) {
         await this.prisma.user.update({
-            where : {id},
+            where: {id},
             data: {
                 assistant: {
                     update: {
@@ -40,11 +40,15 @@ export class UserService {
             contract_address: '0x03a348BA542b59F9243892EAd692E497601cE7A5',
         });
 
-        return this.prisma.assistant.update({
-            where: {wallet: address},
+        return await this.prisma.user.update({
+            where: {id},
             data: {
-                achievement: {
-                    push: 'Signup'
+                assistant: {
+                    update: {
+                        achievement: {
+                            push: ["SignUp"]
+                        }
+                    }
                 }
             }
         })
