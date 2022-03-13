@@ -16,5 +16,5 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/main ./cmd/api/main.g
 
 ENV PATH="/usr/bin/solc:$PATH"
 
-EXPOSE 3001
+EXPOSE 4000
 ENTRYPOINT ["/app/main"]

@@ -14,5 +14,5 @@ func main() {
 	app.Post("/create-nft", api.CreateNft)
 
 	app.Use(recover.New())
-	log.Fatal(app.Listen(":3001"))
+	log.Fatal(app.Listen(":4000"))
 }
