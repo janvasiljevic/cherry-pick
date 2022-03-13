@@ -13,6 +13,7 @@ import {
   TabPanels,
   Tabs,
   Text,
+  Link,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { parseISO } from 'date-fns';
@@ -20,6 +21,8 @@ import { FaMoneyBill, FaPlus, FaQuestion } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { IconMapping, IconPrinter } from '../components/Icons';
 import { IBid, useBidsUser } from '../services/BidsApi';
+
+import { Link as ReachLink } from 'react-router-dom';
 
 const BidsList = () => {
   const { bids, isLoading, isError, mutate } = useBidsUser();
@@ -111,13 +114,13 @@ const EmptyList = () => {
 };
 
 const HelpItem = ({ bid, close = false, closeBid }: IProps) => {
+  console.log(bid);
   return (
     <Box shadow="md" borderRadius={'md'}>
       <Stack direction={'row'}>
         <Flex align={'center'} justify="center">
           <Icon as={IconMapping(bid.typeOfProblem)} size="lg" ml="6"></Icon>
         </Flex>
-
         <Stack direction="column" p="4">
           <Heading size="md" fontWeight={500}>
             {bid.description}
@@ -130,6 +133,10 @@ const HelpItem = ({ bid, close = false, closeBid }: IProps) => {
 
         {close && (
           <Flex align={'center'} justify="end" grow={1} pr="8">
+            <Link as={ReachLink} to={`user${bid.assistedUserId}`} mr="4">
+              Assistent
+            </Link>
+
             <Button
               onClick={() => {
                 closeBid && closeBid(bid.id);

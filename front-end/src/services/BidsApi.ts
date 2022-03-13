@@ -19,11 +19,22 @@ export function useBidsList(params: any) {
 export function useBidsUser() {
   const { data, error, mutate } = useSWR(`/api/user`, fetcher);
 
-  console.log(data, error);
-
   return {
     bids: data?.BidCreated as IBid[],
     isLoading: !error && !data?.BidCreated,
+    isError: error,
+    mutate,
+  };
+}
+
+export function useActiveBids() {
+  const { data, error, mutate } = useSWR(`/api/bid/active-bids`, fetcher);
+
+  console.log(data);
+
+  return {
+    bids: data as IBid[],
+    isLoading: !error && !data,
     isError: error,
     mutate,
   };

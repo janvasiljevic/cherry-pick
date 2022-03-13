@@ -17,10 +17,11 @@ import {
 import axios from 'axios';
 import { parseISO } from 'date-fns';
 import { IconMapping } from '../components/Icons';
-import { IBid, useBidsList } from '../services/BidsApi';
+import { IBid, useActiveBids, useBidsList } from '../services/BidsApi';
 
 const AllBids = () => {
   const { bids, isLoading, isError, mutate } = useBidsList({ status: 'OPEN' });
+  const activeBids = useActiveBids();
 
   const toast = useToast();
 
@@ -52,7 +53,16 @@ const AllBids = () => {
               {bids && bids.filter(({ status }) => status === 'OPEN').length === 0 && <EmptyList />}
             </Stack>
           </TabPanel>
-          <TabPanel></TabPanel>
+
+          <TabPanel>
+            <Stack direction={'column'} spacing={6}>
+              {activeBids.bids &&
+                activeBids.bids.map((bid) => {
+                  return <BidAlt bid={bid} key={bid.id} />;
+                })}
+              {activeBids.bids.length === 0 && <EmptyList />}
+            </Stack>
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Container>
@@ -71,6 +81,38 @@ const EmptyList = () => {
         Empty list
       </Heading>
     </Flex>
+  );
+};
+
+interface IProps2 {
+  bid: IBid;
+}
+
+const BidAlt = ({ bid }: IProps2) => {
+  return (
+    <Box shadow="md" borderRadius={'md'}>
+      <Stack direction={'row'}>
+        <Flex align={'center'} justify="center">
+          <Icon as={IconMapping(bid.typeOfProblem)} fontSize="24px" ml="6"></Icon>
+        </Flex>
+
+        <Stack direction="column" p="4">
+          <Heading size="md" fontWeight={500}>
+            {bid.description}
+          </Heading>
+          <Text fontWeight={300} color="cyan.700">
+            Created at:
+            {parseISO(bid.createdAt).toLocaleDateString() + ' ' + parseISO(bid.createdAt).toLocaleTimeString()}
+          </Text>
+        </Stack>
+      </Stack>
+
+      <Flex grow={1} pb="2" justifyContent={'center'} align="center">
+        <Box>
+          {bid.tipAmount / 100}€, {bid.createdBy.email}, {bid.createdBy.telephoneNumber}
+        </Box>
+      </Flex>
+    </Box>
   );
 };
 

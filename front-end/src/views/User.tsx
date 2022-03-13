@@ -1,32 +1,12 @@
-import {
-  Box,
-  Container,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Stack,
-  Switch,
-  Text,
-  Textarea,
-  useToast,
-} from '@chakra-ui/react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Box, Container, Flex, Heading, Icon, Stack, Text, useToast } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useUser } from '../services/UserService';
 
 export const User = () => {
   const { id } = useParams();
-  const toast = useToast();
-
   const { user, isLoading, isError, mutate } = useUser(id || '');
+
+  console.log(user);
 
   if (isLoading) {
     return <Text>Loading</Text>;
@@ -65,8 +45,8 @@ export const User = () => {
         </Heading>
 
         <Stack direction={'column'} spacing="6">
-          {['1', '2'].map((el) => (
-            <Achievement key={el} />
+          {user?.assistant?.achievement.map((el: string) => (
+            <Achievement key={el} text={el} />
           ))}
         </Stack>
       </Flex>
@@ -74,11 +54,17 @@ export const User = () => {
   );
 };
 
-const Achievement = () => {
+const Achievement = ({ text }: any) => {
+  const nftmapping = () => {
+    if (text === 'SignUp') return '🌟';
+    if (text === 'GoodSamaritan') return '🎖️';
+    if (text === 'FirstHelp') return '⛑️';
+  };
+
   return (
     <Box shadow={'xl'} borderRadius="xl" p="7">
-      {' '}
-      NFT 1
+      {nftmapping()}
+      {text}
     </Box>
   );
 };
