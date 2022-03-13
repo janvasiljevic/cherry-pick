@@ -22,6 +22,7 @@ export class AchievementService {
         ...createAchievementDto,
         contractName: createAchievementDto.name + '_' + createAchievementDto.level,
         contractAddress: response.data.data,
+        createdBy: { connect: { id } },
       },
     });
   }

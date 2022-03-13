@@ -19,6 +19,7 @@ Table User {
   BidCreated Bid [not null]
   BidAssisted Bid [not null]
   assistantId String
+  Achievement Achievement [not null]
 }
 
 Table Assistant {
@@ -49,6 +50,7 @@ Table Bid {
 
 Table Achievement {
   id String [pk]
+  createdBy User [not null]
   contractAddress String [not null]
   contractName String [not null]
   name String [not null]
@@ -57,6 +59,7 @@ Table Achievement {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   assistant Assistant [not null]
+  userId String [not null]
 }
 
 Table AchievementToAssistant {
@@ -93,3 +96,5 @@ Ref: User.assistantId > Assistant.id
 Ref: Bid.createdUserId > User.id
 
 Ref: Bid.assistedUserId > User.id
+
+Ref: Achievement.userId > User.id

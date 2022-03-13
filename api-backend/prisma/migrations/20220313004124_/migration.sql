@@ -67,6 +67,7 @@ CREATE TABLE "Achievement" (
     "level" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Achievement_pkey" PRIMARY KEY ("id")
 );
@@ -94,6 +95,9 @@ ALTER TABLE "Bid" ADD CONSTRAINT "Bid_createdUserId_fkey" FOREIGN KEY ("createdU
 
 -- AddForeignKey
 ALTER TABLE "Bid" ADD CONSTRAINT "Bid_assistedUserId_fkey" FOREIGN KEY ("assistedUserId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Achievement" ADD CONSTRAINT "Achievement_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_AchievementToAssistant" ADD FOREIGN KEY ("A") REFERENCES "Achievement"("id") ON DELETE CASCADE ON UPDATE CASCADE;

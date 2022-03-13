@@ -48,11 +48,8 @@ function App() {
               <Route path="/" element={<Main />}>
                 {/* Company related views */}
                 <Route path="add" element={<AddProblem />} />
-                <Route path="bids" element={<BidsList />} />
-                <Route path="companies" element={<Companies />} />
-                <Route path="company:compId" element={<Company />} />
                 <Route path="user:userId" element={<User />} />
-                <Route index element={'c o n  t e n t'} />
+                <Route index element={<BidsList />} />
               </Route>
               <Route path="start" element={<GetStarted />} />
               <Route path="/login" element={<Login></Login>} />
