@@ -27,7 +27,7 @@ Table Assistant {
   wallet String
   numberOfHelps Int [not null, default: 0]
   tips Int [not null, default: 0]
-  achievement Achievement [not null]
+  achievement String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   User User [not null]
@@ -58,13 +58,7 @@ Table Achievement {
   level Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  assistant Assistant [not null]
   userId String [not null]
-}
-
-Table AchievementToAssistant {
-  achievementId String [ref: > Achievement.id]
-  assistantId String [ref: > Assistant.id]
 }
 
 Enum TypeOfProblem {

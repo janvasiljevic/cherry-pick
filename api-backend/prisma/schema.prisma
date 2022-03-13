@@ -47,7 +47,7 @@ model Assistant {
     numberOfHelps Int     @default(0)
     tips          Int     @default(0)
 
-    achievement Achievement[]
+    achievement String[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -89,7 +89,6 @@ model Achievement {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    assistant Assistant[]
     userId    String
 }
 
