@@ -1,6 +1,6 @@
 # Cherry Pick
 
-This is our project that won the first place at the 2022 nChain Hackathon. We had 24 hours to create something that would brighten the day of the elderly and/ or our partners. We also had to use Blockchain technology form some aspect of the project. We are Cherry pick, [Lan](https://github.com/LanVukusic) & [Jan](https://github.com/janvasiljevic), known by our ability to cherry pick the important commits 5 minutes before the deadline.  
+This is our project that won the first place at the 2022 nChain Hackathon. We had 24 hours to create something that would brighten the day of the elderly and/ or our partners. We also had to use Blockchain technology in some aspect of the project. We are Cherry pick, [Lan](https://github.com/LanVukusic) & [Jan](https://github.com/janvasiljevic), known by our ability to cherry pick the important commits 5 minutes before the deadline.  
 
 
 ![banner](docs/banner.png)
