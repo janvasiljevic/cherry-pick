@@ -1,20 +1,23 @@
-# Cherry Pick
+# Cherry Pick 🍒
 
 This is our project that won the first place at the 2022 nChain Hackathon. We had 24 hours to create something that would brighten the day of the elderly and/ or our partners. We also had to use Blockchain technology in some aspect of the project. We are Cherry pick, [Lan](https://github.com/LanVukusic) & [Jan](https://github.com/janvasiljevic), known by our ability to cherry pick the important commits 5 minutes before the deadline.  
 
 
 ![banner](docs/banner.png)
-## Idea
+
+## Our idea   🌟
 
 Sometimes elderly people struggle with technology - often mundane problems that can be quickly solved by more tech savvy younger population. A friend once told me a story, that his grandpa accidentally deleted the Chrome shortcut icon from his desktop. He was then called to restore back the Internet. While we, as programmers, might find stories like these amusing, not everyone has a relative who "knows computers".  
-
+  
 We thought of a platform, that would connect the two generations together. Those who need the help can create a special account, where they can post their problems in a simple and user friendly manner. Others, the so called helpers or assistants, can create a special technician account, where they see these offers and can provide the assistance. The platform is more good will oriented, and offers the ability of small payments in form of tips. The technicians are also rewarded with NFTs for certain milestones, like signing up, providing help to one person etc.
 
-## Disclaimer
+## Disclaimer ⚠️
 
-This Readme and associated documentation was made after the Hackathon, to better document the project and so we can reflect upon it down the road. All the code and everything else is the same as it was at the deadline.
+The project was made in 24hours and by 2 people. Some features had to be skipped and there are probably plenty of bugs.  
 
-## Project setup
+This Readme and associated documentation was made after the Hackathon, to better document the project and so we can reflect upon it down the road. All the code and everything else is the same as it was at the deadline. Check out the [commit](https://github.com/janvasiljevic/cherry-pick/commit/21ca8e58617d325af4b880bdfa2252cf99a0e8e8) if you wish to see the repository as it was presented.  
+
+## Project setup 🚧
 
 To setup the project you will need the following software and tools:
 
@@ -49,7 +52,7 @@ After Prisma migrations are applied, you should be able to visit the following t
 - `http://localhost/` - the main platform
 - `http://localhost/api/docs` - API documentation for NestJS backend  
 
-## Some thoughts
+## Some thoughts 🤔
 
 Here are some things that we wish we had time to do:
 
@@ -59,7 +62,7 @@ Here are some things that we wish we had time to do:
 - use gRPC instead of HTTP for inter container communication
 - build a production stack of the project
 
-## Some images of the Website
+## Some images of the Website 🖼️
 
 ![1](images/2022-03-14-14-34-57.png)
 ![2](images/2022-03-14-14-35-29.png)
@@ -67,6 +70,6 @@ Here are some things that we wish we had time to do:
 ![4](images/2022-03-14-14-36-31.png)
 ![5](images/2022-03-14-14-36-43.png)
 
-## Our thanks
+## Our thanks 💖 
 
 Thanks to everybody that made the event possible and those who supported us during the HackathoN.
