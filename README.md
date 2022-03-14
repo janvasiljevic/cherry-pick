@@ -52,6 +52,26 @@ After Prisma migrations are applied, you should be able to visit the following t
 - `http://localhost/` - the main platform
 - `http://localhost/api/docs` - API documentation for NestJS backend  
 
+![infra](docs/infra.png)
+
+Quick infrastructure overview:
+
+- NestJS API
+  - main API which keeps track off Users and offers
+  - interacts with the database (Prisma)
+  - handles user security with JWT tokens encrypted in cookies
+- GO NFT API
+  - exposes a simple API that is called from NestJS to mint NFTs 
+- PostgresSQL database
+  - stores data needed for the app to operate
+- React development server
+  - hosts the website
+  - main UI framework is ChakraUI
+  - powered by Vite
+
+**Our database schema**
+![schema](docs/schema.png)
+
 ## Some thoughts 🤔
 
 Here are some things that we wish we had time to do:
